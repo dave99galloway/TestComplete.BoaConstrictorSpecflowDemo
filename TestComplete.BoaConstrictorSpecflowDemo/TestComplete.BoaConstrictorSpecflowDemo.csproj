@@ -22,6 +22,16 @@
     
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     
+
+    
+
+    
+
+    
+
+    
+    <PackageReference Include="WebDriverManager" Version="2.11.2" />
+    
   </ItemGroup>
 
   <ItemGroup>
