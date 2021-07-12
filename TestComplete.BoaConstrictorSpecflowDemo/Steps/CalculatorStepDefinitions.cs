@@ -1,4 +1,5 @@
 ﻿using TechTalk.SpecFlow;
+using FluentAssertions;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
 {
@@ -18,41 +19,28 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
         [Given("the first number is (.*)")]
         public void GivenTheFirstNumberIs(int number)
         {
-            //TODO: implement arrange (precondition) logic
-            // For storing and retrieving scenario-specific data see https://go.specflow.org/doc-sharingdata
-            // To use the multiline text or the table argument of the scenario,
-            // additional string/Table parameters can be defined on the step definition
-            // method. 
-
-            _scenarioContext.Pending();
+            _scenarioContext.Add("First", number);
         }
 
         [Given("the second number is (.*)")]
         public void GivenTheSecondNumberIs(int number)
         {
-            //TODO: implement arrange (precondition) logic
-            // For storing and retrieving scenario-specific data see https://go.specflow.org/doc-sharingdata
-            // To use the multiline text or the table argument of the scenario,
-            // additional string/Table parameters can be defined on the step definition
-            // method. 
-
-            _scenarioContext.Pending();
+            _scenarioContext.Add("Second", number);
         }
 
         [When("the two numbers are added")]
         public void WhenTheTwoNumbersAreAdded()
         {
-            //TODO: implement act (action) logic
-
-            _scenarioContext.Pending();
+            var first = _scenarioContext.Get<int>("First");
+            var second = _scenarioContext.Get<int>("Second");
+            _scenarioContext.Add("Result", first + second);
         }
 
         [Then("the result should be (.*)")]
         public void ThenTheResultShouldBe(int result)
         {
-            //TODO: implement assert (verification) logic
-
-            _scenarioContext.Pending();
+            int actualResult = _scenarioContext.Get<int>("Result");
+            actualResult.Should().Be(result);
         }
     }
 }
