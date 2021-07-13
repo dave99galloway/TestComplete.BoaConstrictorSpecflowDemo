@@ -1,10 +1,9 @@
 ﻿@WebUi
 Feature: SmartBearWebUiLogin
-	Simple calculator for adding two numbers
+	In order to access my account in the online shopping portal
+	As a registered user
+	I want to be able to log in
 
 @mytag
-Scenario: Add two numbers
-	Given the first number is 50
-	And the second number is 70
-	When the two numbers are added
-	Then the result should be 120
+Scenario: Login as registered user
+	Given I login to smartstore portal as "smartbear@yahoo.co.uk"
