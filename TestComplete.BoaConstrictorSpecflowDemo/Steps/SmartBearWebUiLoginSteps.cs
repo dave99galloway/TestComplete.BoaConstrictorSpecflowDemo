@@ -1,5 +1,6 @@
-﻿using OpenQA.Selenium;
-using System;
+﻿using Boa.Constrictor.Screenplay;
+using Boa.Constrictor.WebDriver;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 using TestComplete.BoaConstrictorSpecflowDemo.Pages;
@@ -9,31 +10,25 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
     [Binding]
     public class SmartBearWebUiLoginSteps
     {
-        private readonly IWebDriver _webdriver;
         private readonly TestDataConfig _testDataConfig;
         private readonly ILoginPage _loginPage;
+        private readonly IActor _actor;
 
-        public SmartBearWebUiLoginSteps(IWebDriver webdriver, TestDataConfig testDataConfig, ILoginPage loginPage)
+        public SmartBearWebUiLoginSteps(IWebDriver webdriver, TestDataConfig testDataConfig, ILoginPage loginPage, IActor actor)
         {
-            _webdriver = webdriver;
-            this._testDataConfig = testDataConfig;
+            _testDataConfig = testDataConfig;
             _loginPage = loginPage;
-        }
-
-        public SmartBearWebUiLoginSteps()
-        {
+            _actor = actor;
         }
 
         [Given(@"I login to smartstore portal as ""(.*)""")]
         public void GivenILoginToSmartstorePortalAs(string userName)
         {
-            _webdriver.Navigate().GoToUrl(_testDataConfig.DefaultUrl);
+            _actor.AttemptsTo(Navigate.ToUrl(_testDataConfig.DefaultUrl));
             var password = _testDataConfig.DefaultPassword;
-            _webdriver.FindElement(_loginPage.UserNameField).SendKeys(userName);
-            _webdriver.FindElement(_loginPage.PasswordField).SendKeys(password);
-            _webdriver.FindElement(_loginPage.LoginButton).Click();
-
-            
+            _actor.AttemptsTo(SendKeys.To(_loginPage.UserNameField, userName));
+            _actor.AttemptsTo(SendKeys.To(_loginPage.PasswordField, password));
+            _actor.AttemptsTo(Click.On(_loginPage.LoginButton));
         }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using BoDi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TechTalk.SpecFlow;
 using TestComplete.BoaConstrictorSpecflowDemo.Pages;
 
@@ -29,7 +25,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
             // don't worry about pages / elements not being static, bodi is controlling the lifecycle
             // so we'll only get one instance
             _objectContainer.RegisterFactoryAs<ILoginPage>(c => new LoginPage());
-                
+
         }
 
         [AfterScenario]
