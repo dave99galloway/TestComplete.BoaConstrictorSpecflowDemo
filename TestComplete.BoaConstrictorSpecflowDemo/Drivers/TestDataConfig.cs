@@ -6,24 +6,19 @@ using DotNetEnv;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Drivers
 {
-    class TestDataConfig
+    public class TestDataConfig
     {
-        private readonly Lazy<string> _defaultPassword;
 
         public TestDataConfig()
         {
-            _defaultPassword = new Lazy<string>(() =>
-            {
-                return Env.GetString("portal.defaultPassword");
-            });
+            //todo - add logging for non screenplay activities
+            Console.WriteLine("Loading Config from TestCompleteTestDataConfig.env");
+            Env.TraversePath().Load("TestCompleteTestDataConfig.env");
         }
 
-        public string DefaultPassword
-        {
-            get
-            {
-                return _defaultPassword.Value;
-            }
-        }
+        public string DefaultPassword => Env.GetString("PORTAL_DEFAULT_PASSWORD");
+        public string DefaultUrl => Env.GetString("PORTAL_DEFAULT_URL");
+
+
     }
 }

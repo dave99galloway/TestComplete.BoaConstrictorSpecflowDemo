@@ -1,5 +1,6 @@
 ﻿using TechTalk.SpecFlow;
 using FluentAssertions;
+using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
 {
@@ -33,6 +34,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
         {
             var first = _scenarioContext.Get<int>("First");
             var second = _scenarioContext.Get<int>("Second");
+
             _scenarioContext.Add("Result", first + second);
         }
 

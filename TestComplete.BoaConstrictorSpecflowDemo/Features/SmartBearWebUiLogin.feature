@@ -7,3 +7,4 @@ Feature: SmartBearWebUiLogin
 @mytag
 Scenario: Login as registered user
 	Given I login to smartstore portal as "smartbear@yahoo.co.uk"
+	When the two numbers are added
