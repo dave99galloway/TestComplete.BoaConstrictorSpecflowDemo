@@ -1,6 +1,7 @@
 ﻿using TechTalk.SpecFlow;
 using FluentAssertions;
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
+using TestComplete.BoaConstrictorSpecflowDemo.Pages;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
 {
