@@ -4,7 +4,6 @@ Feature: SmartBearWebUiLogin
 	As a registered user
 	I want to be able to log in
 
-@mytag
 Scenario: Login as registered user
 	Given I login to smartstore portal as "smartbear@yahoo.co.uk"
 	When the two numbers are added

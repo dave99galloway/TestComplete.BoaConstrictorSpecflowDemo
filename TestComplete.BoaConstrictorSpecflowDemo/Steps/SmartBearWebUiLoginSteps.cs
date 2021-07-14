@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 using TestComplete.BoaConstrictorSpecflowDemo.Pages;
+using TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
 {
@@ -12,24 +13,25 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
     {
         private readonly TestDataConfig _testDataConfig;
         private readonly ILoginPage _loginPage;
-        private readonly IActor _actor;
+        private readonly IWebUiActorsProvider _actors;
 
-        public SmartBearWebUiLoginSteps(IWebDriver webdriver, TestDataConfig testDataConfig, ILoginPage loginPage, IActor actor)
+        public SmartBearWebUiLoginSteps(TestDataConfig testDataConfig, ILoginPage loginPage, IWebUiActorsProvider actors)
         {
             _testDataConfig = testDataConfig;
             _loginPage = loginPage;
-            _actor = actor;
+            _actors = actors;
         }
 
         [Given(@"I login to smartstore portal as ""(.*)""")]
         public void GivenILoginToSmartstorePortalAs(string userName)
         {
+            var actor = _actors.ActorCalled(userName);
             //todo: create custom task
-            _actor.AttemptsTo(Navigate.ToUrl(_testDataConfig.DefaultUrl));
+            actor.AttemptsTo(Navigate.ToUrl(_testDataConfig.DefaultUrl));
             var password = _testDataConfig.DefaultPassword;
-            _actor.AttemptsTo(SendKeys.To(_loginPage.UserNameField, userName));
-            _actor.AttemptsTo(SendKeys.To(_loginPage.PasswordField, password));
-            _actor.AttemptsTo(Click.On(_loginPage.LoginButton));
+            actor.AttemptsTo(SendKeys.To(_loginPage.UserNameField, userName));
+            actor.AttemptsTo(SendKeys.To(_loginPage.PasswordField, password));
+            actor.AttemptsTo(Click.On(_loginPage.LoginButton));
         }
     }
 }
