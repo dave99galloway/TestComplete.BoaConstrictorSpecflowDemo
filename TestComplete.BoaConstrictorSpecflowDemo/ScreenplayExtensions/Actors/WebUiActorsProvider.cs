@@ -3,6 +3,7 @@ using Boa.Constrictor.WebDriver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
@@ -40,11 +41,8 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
         }
 
         public void DismissCast()
-        {             
-           foreach(var actor in _actors.Values)
-            {
-                actor.Value.AttemptsTo(QuitWebDriver.ForBrowser());
-            }
+        {
+            _actors.Values.ToList().ForEach(actor => actor.Value.AttemptsTo(QuitWebDriver.ForBrowser()));
             _actors.Clear();
         }
     }
