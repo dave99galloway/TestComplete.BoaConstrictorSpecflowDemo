@@ -40,7 +40,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Screenplay.Tasks
                 return this;
             }
 
-            public LoginBuilder To (string url)
+            public LoginBuilder To(string url)
             {
                 Url = url;
                 return this;
@@ -55,10 +55,12 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Screenplay.Tasks
 
         public void PerformAs(IActor actor)
         {
-            actor.AttemptsTo(Navigate.ToUrl(_loginBuilder.Url));
-            actor.AttemptsTo(SendKeys.To(_loginBuilder.LoginPage.UserNameField, _loginBuilder.UserName));
-            actor.AttemptsTo(SendKeys.To(_loginBuilder.LoginPage.PasswordField, _loginBuilder.Password));
-            actor.AttemptsTo(Click.On(_loginBuilder.LoginPage.LoginButton));
+            actor.AttemptsTo(
+                Navigate.ToUrl(_loginBuilder.Url),
+                SendKeys.To(_loginBuilder.LoginPage.UserNameField, _loginBuilder.UserName),
+                SendKeys.To(_loginBuilder.LoginPage.PasswordField, _loginBuilder.Password),
+                Click.On(_loginBuilder.LoginPage.LoginButton)
+                );
         }
 
         public override string ToString() => $"Login to {_loginBuilder.Url} as {_loginBuilder.UserName}";
