@@ -12,18 +12,48 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
         void DismissCast();
     }
 
+    public interface IActorsList
+    {
+        ConcurrentDictionary<string, Lazy<IActor>> CastList { get; }
+    }
+
+    public sealed class ActorsList : IActorsList
+    {
+        private readonly ConcurrentDictionary<string, Lazy<IActor>> castList;
+
+        public ActorsList()
+        {
+            castList = new ConcurrentDictionary<string, Lazy<IActor>>();
+        }
+
+        public ConcurrentDictionary<string, Lazy<IActor>> CastList => castList;
+    }
+
+    public interface IActorsListFactory
+    {
+        public IActorsList Create();
+    }
+
+    public sealed class ActorsListFactory : IActorsListFactory
+    {
+        public IActorsList Create()
+        {
+            return new ActorsList();
+        }
+    }
+
     public sealed class ActorsProvider : IActorsProvider
     {
-        private readonly ConcurrentDictionary<string, Lazy<IActor>> _actors;
+        private readonly IActorsList _actors;
 
-        public ActorsProvider(ConcurrentDictionary<string, Lazy<IActor>> actors)
+        public ActorsProvider(IActorsList actors)
         {
             _actors = actors ?? throw new ArgumentNullException(nameof(actors));
         }
 
         public IActor ActorCalled(string name)
         {
-            var actor = _actors.GetOrAdd(name, newName => new Lazy<IActor>(() =>
+            var actor = _actors.CastList.GetOrAdd(name, newName => new Lazy<IActor>(() =>
             {
                 //todo: add ability to memorise/recall - all actors will need this
                 return new Actor(name: newName, logger: new ConsoleLogger());
@@ -34,7 +64,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
         public void DismissCast()
         {
-            _actors.Clear();
+            _actors.CastList.Clear();
         }
     }
 }

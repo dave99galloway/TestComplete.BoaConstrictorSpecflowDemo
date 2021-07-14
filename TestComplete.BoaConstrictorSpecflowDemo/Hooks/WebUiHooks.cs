@@ -12,7 +12,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
 
         public WebUiHooks(IObjectContainer objectContainer)
         {
-            this._objectContainer = objectContainer;
+            _objectContainer = objectContainer;
         }
 
         [BeforeScenario]
@@ -20,7 +20,6 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
         {
             _objectContainer.RegisterFactoryAs<IWebDriverFactory>(c => new WebDriverFactory());
         }
-
 
         [AfterScenario]
         public void AfterScenario()

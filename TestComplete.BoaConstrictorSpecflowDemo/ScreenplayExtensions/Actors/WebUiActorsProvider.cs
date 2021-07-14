@@ -1,7 +1,6 @@
 ﻿using Boa.Constrictor.Screenplay;
 using Boa.Constrictor.WebDriver;
 using System;
-using System.Collections.Concurrent;
 using System.Linq;
 
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
@@ -16,11 +15,11 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
     public sealed class WebUiActorsProvider : IWebUiActorsProvider
     {
         private readonly IActorsProvider _actorsProvider;
-        private readonly ConcurrentDictionary<string, Lazy<IActor>> _actors;
+        private readonly IActorsList _actors;
         private readonly IWebDriverFactory _webDriverFactory;
 
 
-        public WebUiActorsProvider(IActorsProvider actorsProvider, ConcurrentDictionary<string, Lazy<IActor>> actors, IWebDriverFactory webDriverFactory)
+        public WebUiActorsProvider(IActorsProvider actorsProvider, IActorsList actors, IWebDriverFactory webDriverFactory)
         {
             _actorsProvider = actorsProvider;
             _actors = actors;
@@ -29,7 +28,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
         public IActor ActorCalled(string name)
         {
-            return _actors.GetOrAdd(name, newName => new Lazy<IActor>(() =>
+            return _actors.CastList.GetOrAdd(name, newName => new Lazy<IActor>(() =>
             {
                 var actor = _actorsProvider.ActorCalled(name);
                 actor.Can(BrowseTheWeb.With(_webDriverFactory.Create()));
@@ -40,8 +39,8 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
         public void DismissCast()
         {
-            _actors.Values.ToList().ForEach(actor => actor.Value.AttemptsTo(QuitWebDriver.ForBrowser()));
-            _actors.Clear();
+            _actors.CastList.Values.ToList().ForEach(actor => actor.Value.AttemptsTo(QuitWebDriver.ForBrowser()));
+            _actors.CastList.Clear();
         }
     }
 }

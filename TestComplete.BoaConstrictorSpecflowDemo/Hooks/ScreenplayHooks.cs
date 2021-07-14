@@ -1,7 +1,4 @@
-﻿using Boa.Constrictor.Screenplay;
-using BoDi;
-using System;
-using System.Collections.Concurrent;
+﻿using BoDi;
 using TechTalk.SpecFlow;
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 using TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors;
@@ -17,13 +14,18 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
             _objectContainer = objectContainer;
         }
 
+        [BeforeScenario]
+        public void RegisterActorListFactory()
+        {
+            _objectContainer.RegisterFactoryAs<IActorsListFactory>(c => new ActorsListFactory());
+        }
 
         [BeforeScenario]
         public void RegisterActorProvider()
         {
             _objectContainer.RegisterFactoryAs<IActorsProvider>(c =>
             {
-                return new ActorsProvider(actors: new ConcurrentDictionary<string, Lazy<IActor>>());
+                return new ActorsProvider(actors: c.Resolve<IActorsListFactory>().Create());
             });
         }
 
@@ -34,11 +36,10 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
             {
                 return new WebUiActorsProvider(
                     actorsProvider: c.Resolve<IActorsProvider>(),
-                    actors: new ConcurrentDictionary<string, Lazy<IActor>>(),
+                    actors: c.Resolve<IActorsListFactory>().Create(),
                     webDriverFactory: c.Resolve<IWebDriverFactory>());
             });
         }
-
 
         [AfterScenario]
         public void AfterScenario()
