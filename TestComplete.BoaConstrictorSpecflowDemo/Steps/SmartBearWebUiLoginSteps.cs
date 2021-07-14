@@ -8,7 +8,7 @@ using static TestComplete.BoaConstrictorSpecflowDemo.Screenplay.Tasks.SmartBearW
 namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
 {
     [Binding]
-    public class SmartBearWebUiLoginSteps
+    public sealed class SmartBearWebUiLoginSteps
     {
         private readonly TestDataConfig _testDataConfig;
         private readonly ILoginPage _loginPage;

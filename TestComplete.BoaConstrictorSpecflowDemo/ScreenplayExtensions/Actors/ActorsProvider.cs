@@ -2,6 +2,7 @@
 using Boa.Constrictor.Screenplay;
 using System;
 using System.Collections.Concurrent;
+using static TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Abilities.ActorMemory;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 {
@@ -52,14 +53,13 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
         }
 
         public IActor ActorCalled(string name)
-        {
-            var actor = _actors.CastList.GetOrAdd(name, newName => new Lazy<IActor>(() =>
-            {
-                //todo: add ability to memorise/recall - all actors will need this
-                return new Actor(name: newName, logger: new ConsoleLogger());
-            }));
-
-            return actor.Value;
+        {            
+            return _actors.CastList.GetOrAdd(name, newName => new Lazy<IActor>(() =>
+            {              
+                var actor = new Actor(name: newName, logger: new ConsoleLogger());
+                actor.Can(RememberThings());
+                return actor;
+            })).Value;
         }
 
         public void DismissCast()

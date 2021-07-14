@@ -6,4 +6,14 @@ Feature: SmartBearWebUiLogin
 
 Scenario: Login as registered user
 	Given I login to smartstore portal as "smartbear@yahoo.co.uk"
-	When the two numbers are added
+	When "smartbear@yahoo.co.uk" memorises this list
+	| orange |
+	| pear   |
+	| apple  |
+	| bear   |
+	Then "smartbear@yahoo.co.uk" remembers the list
+	| orange |
+	| pear   |
+	| apple  |
+	| bear   |
+	
