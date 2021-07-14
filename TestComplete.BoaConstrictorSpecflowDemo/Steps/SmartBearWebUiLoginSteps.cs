@@ -1,6 +1,4 @@
-﻿using Boa.Constrictor.Screenplay;
-using Boa.Constrictor.WebDriver;
-using OpenQA.Selenium;
+﻿using Boa.Constrictor.WebDriver;
 using TechTalk.SpecFlow;
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 using TestComplete.BoaConstrictorSpecflowDemo.Pages;

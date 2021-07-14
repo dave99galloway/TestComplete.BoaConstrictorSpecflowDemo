@@ -2,20 +2,18 @@
 using Boa.Constrictor.WebDriver;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 {
-    public interface IWebUiActorsProvider: IActorsProvider
+    public interface IWebUiActorsProvider : IActorsProvider
     {
         new IActor ActorCalled(string name);
     }
 
-    public sealed class WebUiActorsProvider :  IWebUiActorsProvider
+    public sealed class WebUiActorsProvider : IWebUiActorsProvider
     {
         private readonly IActorsProvider _actorsProvider;
         private readonly ConcurrentDictionary<string, Lazy<IActor>> _actors;

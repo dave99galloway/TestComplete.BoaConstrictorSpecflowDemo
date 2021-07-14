@@ -2,8 +2,6 @@
 using Boa.Constrictor.Screenplay;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 {
@@ -16,7 +14,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
     public sealed class ActorsProvider : IActorsProvider
     {
-        private readonly ConcurrentDictionary<string,Lazy<IActor>> _actors;
+        private readonly ConcurrentDictionary<string, Lazy<IActor>> _actors;
 
         public ActorsProvider(ConcurrentDictionary<string, Lazy<IActor>> actors)
         {
@@ -26,10 +24,10 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
         public IActor ActorCalled(string name)
         {
             var actor = _actors.GetOrAdd(name, newName => new Lazy<IActor>(() =>
-            {                
+            {
                 //todo: add ability to memorise/recall - all actors will need this
                 return new Actor(name: newName, logger: new ConsoleLogger());
-            }));                
+            }));
 
             return actor.Value;
         }
@@ -39,6 +37,4 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
             _actors.Clear();
         }
     }
-
-
 }

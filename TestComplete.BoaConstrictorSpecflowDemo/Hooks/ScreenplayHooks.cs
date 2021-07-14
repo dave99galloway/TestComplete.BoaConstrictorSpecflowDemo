@@ -1,8 +1,5 @@
-﻿using Boa.Constrictor.Logging;
-using Boa.Constrictor.Screenplay;
-using Boa.Constrictor.WebDriver;
+﻿using Boa.Constrictor.Screenplay;
 using BoDi;
-using OpenQA.Selenium;
 using System;
 using System.Collections.Concurrent;
 using TechTalk.SpecFlow;
@@ -20,12 +17,6 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
             _objectContainer = objectContainer;
         }
 
-        [BeforeScenario]
-        public void BeforeScenario()
-        {
-            //IActor - won't use this once we get beyond the basics
-            //_objectContainer.RegisterFactoryAs<IActor>(c => SimpleWebActorFactory());
-        }
 
         [BeforeScenario]
         public void RegisterActorProvider()
@@ -48,12 +39,6 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
             });
         }
 
-        //private Actor SimpleWebActorFactory()
-        //{
-        //    Actor actor = new Actor(name: "a smart bear", logger: new ConsoleLogger());
-        //    actor.Can(BrowseTheWeb.With(_objectContainer.Resolve<IWebDriver>()));
-        //    return actor;
-        //}
 
         [AfterScenario]
         public void AfterScenario()
