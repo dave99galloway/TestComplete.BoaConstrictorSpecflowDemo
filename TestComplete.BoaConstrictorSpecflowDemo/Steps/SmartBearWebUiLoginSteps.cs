@@ -3,6 +3,7 @@ using TechTalk.SpecFlow;
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 using TestComplete.BoaConstrictorSpecflowDemo.Pages;
 using TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors;
+using static TestComplete.BoaConstrictorSpecflowDemo.Screenplay.Tasks.SmartBearWebUiLoginTask;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
 {
@@ -23,13 +24,12 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
         [Given(@"I login to smartstore portal as ""(.*)""")]
         public void GivenILoginToSmartstorePortalAs(string userName)
         {
-            var actor = _actors.ActorCalled(userName);
-            //todo: create custom task
-            actor.AttemptsTo(Navigate.ToUrl(_testDataConfig.DefaultUrl));
-            var password = _testDataConfig.DefaultPassword;
-            actor.AttemptsTo(SendKeys.To(_loginPage.UserNameField, userName));
-            actor.AttemptsTo(SendKeys.To(_loginPage.PasswordField, password));
-            actor.AttemptsTo(Click.On(_loginPage.LoginButton));
+            _actors.ActorCalled(userName)
+            .AttemptsTo(Login()
+                .To(_testDataConfig.DefaultUrl)
+                .As(userName)
+                .WithPassword(_testDataConfig.DefaultPassword)
+                .From(_loginPage));
         }
     }
 }

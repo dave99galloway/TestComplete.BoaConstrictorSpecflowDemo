@@ -18,7 +18,6 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
         private readonly IActorsList _actors;
         private readonly IWebDriverFactory _webDriverFactory;
 
-
         public WebUiActorsProvider(IActorsProvider actorsProvider, IActorsList actors, IWebDriverFactory webDriverFactory)
         {
             _actorsProvider = actorsProvider;
