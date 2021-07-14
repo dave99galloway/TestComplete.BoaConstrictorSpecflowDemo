@@ -20,6 +20,8 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Tasks
             actor.Using<ActorMemory>().Memory.Memorize<T>(Data);
         }
 
+        public override string ToString() => $"Memorize a fact of type { typeof(T)}";
+
         public static Memorize<T> Fact(T data)
         {
             return new Memorize<T>(data);
