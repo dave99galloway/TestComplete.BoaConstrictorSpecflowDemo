@@ -24,6 +24,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
         [Given(@"I login to smartstore portal as ""(.*)""")]
         public void GivenILoginToSmartstorePortalAs(string userName)
         {
+            //todo: create custom task
             _actor.AttemptsTo(Navigate.ToUrl(_testDataConfig.DefaultUrl));
             var password = _testDataConfig.DefaultPassword;
             _actor.AttemptsTo(SendKeys.To(_loginPage.UserNameField, userName));
