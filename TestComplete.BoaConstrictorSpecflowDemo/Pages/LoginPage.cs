@@ -1,25 +1,20 @@
-﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Boa.Constrictor.WebDriver;
+using OpenQA.Selenium;
+using static Boa.Constrictor.WebDriver.WebLocator;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Pages
 {
     public interface ILoginPage
     {
-        By LoginButton { get; }
-        By PasswordField { get; }
-        By UserNameField { get; }
+        IWebLocator LoginButton { get; }
+        IWebLocator PasswordField { get; }
+        IWebLocator UserNameField { get; }
     }
 
     public class LoginPage : ILoginPage
     {
-        public LoginPage()
-        {
-            Console.WriteLine("init LoginPage");
-        }
-        public By UserNameField => By.CssSelector("#UsernameOrEmail");
-        public By PasswordField => By.CssSelector("#Password");
-        public By LoginButton => By.CssSelector(".btn-login");
+        public IWebLocator UserNameField => L("User Name Field", By.CssSelector("#UsernameOrEmail"));
+        public IWebLocator PasswordField => L("Password Field", By.CssSelector("#Password"));
+        public IWebLocator LoginButton => L("Login Button", By.CssSelector(".btn-login"));
     }
 }
