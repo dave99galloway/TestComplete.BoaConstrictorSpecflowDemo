@@ -16,32 +16,32 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
             _scenarioContext = scenarioContext;
         }
 
-        [Given("the first number is (.*)")]
+        [Given(regex: "the first number is (.*)")]
         public void GivenTheFirstNumberIs(int number)
         {
-            _scenarioContext.Add("First", number);
+            _scenarioContext.Add(key: "First", value: number);
         }
 
-        [Given("the second number is (.*)")]
+        [Given(regex: "the second number is (.*)")]
         public void GivenTheSecondNumberIs(int number)
         {
-            _scenarioContext.Add("Second", number);
+            _scenarioContext.Add(key: "Second", value: number);
         }
 
-        [When("the two numbers are added")]
+        [When(regex: "the two numbers are added")]
         public void WhenTheTwoNumbersAreAdded()
         {
-            var first = _scenarioContext.Get<int>("First");
-            var second = _scenarioContext.Get<int>("Second");
+            var first = _scenarioContext.Get<int>(key: "First");
+            var second = _scenarioContext.Get<int>(key: "Second");
 
-            _scenarioContext.Add("Result", first + second);
+            _scenarioContext.Add(key: "Result", value: first + second);
         }
 
-        [Then("the result should be (.*)")]
+        [Then(regex: "the result should be (.*)")]
         public void ThenTheResultShouldBe(int result)
         {
-            int actualResult = _scenarioContext.Get<int>("Result");
-            actualResult.Should().Be(result);
+            int actualResult = _scenarioContext.Get<int>(key: "Result");
+            actualResult.Should().Be(expected: result);
         }
     }
 }

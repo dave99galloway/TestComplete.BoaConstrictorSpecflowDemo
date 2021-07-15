@@ -1,8 +1,5 @@
 ﻿using Boa.Constrictor.Screenplay;
 using Boa.Constrictor.WebDriver;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TestComplete.BoaConstrictorSpecflowDemo.Pages;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.Screenplay.Tasks
@@ -23,6 +20,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Screenplay.Tasks
 
         public class LoginBuilder
         {
+            //todo: drop builder, make all fields public and use object initialization instead
             public ILoginPage LoginPage { get; private set; }
             public string UserName { get; private set; }
             public string Password { get; private set; }
@@ -49,17 +47,17 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Screenplay.Tasks
             public SmartBearWebUiLoginTask From(ILoginPage loginPage)
             {
                 LoginPage = loginPage;
-                return new SmartBearWebUiLoginTask(this);
+                return new SmartBearWebUiLoginTask(loginBuilder: this);
             }
         }
 
         public void PerformAs(IActor actor)
         {
             actor.AttemptsTo(
-                Navigate.ToUrl(_loginBuilder.Url),
-                SendKeys.To(_loginBuilder.LoginPage.UserNameField, _loginBuilder.UserName),
-                SendKeys.To(_loginBuilder.LoginPage.PasswordField, _loginBuilder.Password),
-                Click.On(_loginBuilder.LoginPage.LoginButton)
+                Navigate.ToUrl(url: _loginBuilder.Url),
+                SendKeys.To(locator: _loginBuilder.LoginPage.UserNameField, keystrokes: _loginBuilder.UserName),
+                SendKeys.To(locator: _loginBuilder.LoginPage.PasswordField, keystrokes: _loginBuilder.Password),
+                Click.On(locator: _loginBuilder.LoginPage.LoginButton)
                 );
         }
 

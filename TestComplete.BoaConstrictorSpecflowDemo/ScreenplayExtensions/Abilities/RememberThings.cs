@@ -1,7 +1,4 @@
 ﻿using Boa.Constrictor.Screenplay;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Abilities
@@ -13,7 +10,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Abilities
         {
             Memory = memory;
         }
-        public static ActorMemory RememberThings() => new ActorMemory(new ActorContext());
+        public static ActorMemory RememberThings() => new ActorMemory(memory: new ActorContext());
     }
 
     public interface IActorContext
@@ -40,12 +37,12 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Abilities
 
         public void Memorize<T>(T data)
         {
-            _memory.Set(data);
+            _memory.Set(data: data);
         }
 
         public void Memorize<T>(T data, string key)
         {
-            _memory.Set(data, key);
+            _memory.Set(data: data, key: key);
         }
 
         public T Recollect<T>()
@@ -55,7 +52,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Abilities
 
         public T Recollect<T>(string key)
         {
-            return _memory.Get<T>(key);
+            return _memory.Get<T>(key: key);
         }
     }
 }

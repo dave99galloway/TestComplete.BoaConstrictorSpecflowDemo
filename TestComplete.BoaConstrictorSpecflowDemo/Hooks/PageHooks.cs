@@ -19,12 +19,12 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
         {
             // this is where we avoid relying on concrete implementations of page objects
             // in steps / interactions. We can re-wire pages based on custom criteria to 
-            // allow for e.g. different locales / versions / whitelabelled products.
+            // allow for e.g. different locales / versions / white labeled products.
             // unnecessary if elements are consistently identifiable across different variations
             // but in practice this is unlikely
-            // don't worry about pages / elements not being static, bodi is controlling the lifecycle
+            // don't worry about pages / elements not being static, BoDi is controlling the lifecycle
             // so we'll only get one instance
-            _objectContainer.RegisterFactoryAs<ILoginPage>(c => new LoginPage());
+            _objectContainer.RegisterFactoryAs<ILoginPage>(factoryDelegate: c => new LoginPage());
 
         }
 

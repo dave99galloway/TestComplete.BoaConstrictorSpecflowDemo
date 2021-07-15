@@ -17,28 +17,23 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
         [BeforeScenario]
         public void RegisterActorListFactory()
         {
-            _objectContainer.RegisterFactoryAs<IActorsListFactory>(c => new ActorsListFactory());
+            _objectContainer.RegisterFactoryAs<IActorsListFactory>(factoryDelegate: c => new ActorsListFactory());
         }
 
         [BeforeScenario]
         public void RegisterActorProvider()
         {
-            _objectContainer.RegisterFactoryAs<IActorsProvider>(c =>
-            {
-                return new ActorsProvider(actors: c.Resolve<IActorsListFactory>().Create());
-            });
+            _objectContainer.RegisterFactoryAs<IActorsProvider>(factoryDelegate: c => 
+                new ActorsProvider(actors: c.Resolve<IActorsListFactory>().Create()));
         }
 
         [BeforeScenario]
         public void RegisterWebUiActorProvider()
         {
-            _objectContainer.RegisterFactoryAs<IWebUiActorsProvider>(c =>
-            {
-                return new WebUiActorsProvider(
-                    actorsProvider: c.Resolve<IActorsProvider>(),
-                    actors: c.Resolve<IActorsListFactory>().Create(),
-                    webDriverFactory: c.Resolve<IWebDriverFactory>());
-            });
+            _objectContainer.RegisterFactoryAs<IWebUiActorsProvider>(factoryDelegate: c => new WebUiActorsProvider(
+                actorsProvider: c.Resolve<IActorsProvider>(),
+                actors: c.Resolve<IActorsListFactory>().Create(),
+                webDriverFactory: c.Resolve<IWebDriverFactory>()));
         }
 
         [AfterScenario]

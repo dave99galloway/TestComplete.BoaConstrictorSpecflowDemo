@@ -1,7 +1,4 @@
 ﻿using Boa.Constrictor.Screenplay;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Abilities;
 
 namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Questions
@@ -27,8 +24,6 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Questions
     {
         public string ByKey { get; }
 
-        private Lookup() { }
-
         public Lookup(string byKey)
         {
             ByKey = byKey;
@@ -40,11 +35,10 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Questions
         }
 
         public override string ToString() => $"Recollect a fact of type { typeof(TAnswer)} stored as {ByKey}";
-
-
+        
         public static Lookup<TAnswer> Fact(string byKey)
         {
-            return new Lookup<TAnswer>(byKey);
+            return new Lookup<TAnswer>(byKey: byKey);
         }
     }
 }

@@ -13,8 +13,8 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Pages
 
     public class LoginPage : ILoginPage
     {
-        public IWebLocator UserNameField => L("User Name Field", By.CssSelector("#UsernameOrEmail"));
-        public IWebLocator PasswordField => L("Password Field", By.CssSelector("#Password"));
-        public IWebLocator LoginButton => L("Login Button", By.CssSelector(".btn-login"));
+        public IWebLocator UserNameField => L(description: "User Name Field", query: By.CssSelector(cssSelectorToFind: "#UsernameOrEmail"));
+        public IWebLocator PasswordField => L(description: "Password Field", query: By.CssSelector(cssSelectorToFind: "#Password"));
+        public IWebLocator LoginButton => L(description: "Login Button", query: By.CssSelector(cssSelectorToFind: ".btn-login"));
     }
 }

@@ -1,5 +1,4 @@
-﻿using Boa.Constrictor.WebDriver;
-using TechTalk.SpecFlow;
+﻿using TechTalk.SpecFlow;
 using TestComplete.BoaConstrictorSpecflowDemo.Drivers;
 using TestComplete.BoaConstrictorSpecflowDemo.Pages;
 using TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors;
@@ -21,15 +20,15 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Steps
             _actors = actors;
         }
 
-        [Given(@"I login to smartstore portal as ""(.*)""")]
+        [Given(regex: @"I login to smartstore portal as ""(.*)""")]
         public void GivenILoginToSmartstorePortalAs(string userName)
         {
-            _actors.ActorCalled(userName)
-            .AttemptsTo(Login()
-                .To(_testDataConfig.DefaultUrl)
-                .As(userName)
-                .WithPassword(_testDataConfig.DefaultPassword)
-                .From(_loginPage));
+            _actors.ActorCalled(name: userName)
+            .AttemptsTo(task: Login()
+                .To(url: _testDataConfig.DefaultUrl)
+                .As(userName: userName)
+                .WithPassword(password: _testDataConfig.DefaultPassword)
+                .From(loginPage: _loginPage));
         }
     }
 }

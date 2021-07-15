@@ -16,4 +16,3 @@ Scenario: Login as registered user
 	| pear   |
 	| apple  |
 	| bear   |
-	

@@ -20,14 +20,12 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
     public sealed class ActorsList : IActorsList
     {
-        private readonly ConcurrentDictionary<string, Lazy<IActor>> castList;
-
         public ActorsList()
         {
-            castList = new ConcurrentDictionary<string, Lazy<IActor>>();
+            CastList = new ConcurrentDictionary<string, Lazy<IActor>>();
         }
 
-        public ConcurrentDictionary<string, Lazy<IActor>> CastList => castList;
+        public ConcurrentDictionary<string, Lazy<IActor>> CastList { get; }
     }
 
     public interface IActorsListFactory
@@ -49,15 +47,15 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
         public ActorsProvider(IActorsList actors)
         {
-            _actors = actors ?? throw new ArgumentNullException(nameof(actors));
+            _actors = actors ?? throw new ArgumentNullException(paramName: nameof(actors));
         }
 
         public IActor ActorCalled(string name)
         {            
-            return _actors.CastList.GetOrAdd(name, newName => new Lazy<IActor>(() =>
+            return _actors.CastList.GetOrAdd(key: name, valueFactory: newName => new Lazy<IActor>(valueFactory: () =>
             {              
                 var actor = new Actor(name: newName, logger: new ConsoleLogger());
-                actor.Can(RememberThings());
+                actor.Can(ability: RememberThings());
                 return actor;
             })).Value;
         }

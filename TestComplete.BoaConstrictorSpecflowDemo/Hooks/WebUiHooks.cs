@@ -18,7 +18,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Hooks
         [BeforeScenario]
         public void BeforeScenario()
         {
-            _objectContainer.RegisterFactoryAs<IWebDriverFactory>(c => new WebDriverFactory());
+            _objectContainer.RegisterFactoryAs<IWebDriverFactory>(factoryDelegate: c => new WebDriverFactory());
         }
 
         [AfterScenario]

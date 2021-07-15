@@ -27,10 +27,10 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
         public IActor ActorCalled(string name)
         {
-            return _actors.CastList.GetOrAdd(name, newName => new Lazy<IActor>(() =>
+            return _actors.CastList.GetOrAdd(key: name, valueFactory: newName => new Lazy<IActor>(valueFactory: () =>
             {
-                var actor = _actorsProvider.ActorCalled(name);
-                actor.Can(BrowseTheWeb.With(_webDriverFactory.Create()));
+                var actor = _actorsProvider.ActorCalled(name: name);
+                actor.Can(ability: BrowseTheWeb.With(driver: _webDriverFactory.Create()));
                 return actor;
 
             })).Value;
@@ -38,7 +38,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.ScreenplayExtensions.Actors
 
         public void DismissCast()
         {
-            _actors.CastList.Values.ToList().ForEach(actor => actor.Value.AttemptsTo(QuitWebDriver.ForBrowser()));
+            _actors.CastList.Values.ToList().ForEach(action: actor => actor.Value.AttemptsTo(task: QuitWebDriver.ForBrowser()));
             _actors.CastList.Clear();
         }
     }

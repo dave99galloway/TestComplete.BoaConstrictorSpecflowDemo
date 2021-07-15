@@ -15,7 +15,7 @@ namespace TestComplete.BoaConstrictorSpecflowDemo.Drivers
         public IWebDriver Create()
         {
             //todo: switch on config to get default driver type
-            new DriverManager().SetUpDriver(new ChromeConfig());
+            new DriverManager().SetUpDriver(config: new ChromeConfig());
             return new ChromeDriver();
         }
     }
